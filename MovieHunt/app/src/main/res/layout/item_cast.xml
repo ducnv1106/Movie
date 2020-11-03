@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.ducnv.moviehunt.R"/>
+        <variable
+            name="item"
+            type="com.ducnv.moviehunt.data.model.Cast" />
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginEnd="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="@dimen/dimen_5dp"
+        app:cardElevation="@dimen/dimen_10dp"
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            app:image="@{item.fullProfilePath}"
+            android:scaleType="centerCrop"
+            android:id="@+id/img_cast"
+            android:layout_width="130dp"
+            android:layout_height="200dp"
+            tools:ignore="MissingConstraints" />
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/dimen_5dp"
+        android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/card_view"
+        tools:text="hello"
+        android:text="@{item.name}"
+        android:textColor="@color/clr_white"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--    <item android:state_pressed="true">-->
+    <!--        <shape android:shape="rectangle">-->
+    <!--            <gradient android:angle="0" android:endColor="@color/clr_selected_radio"-->
+    <!--                android:startColor="@color/clr_selected_radio" />-->
+    <!--            <corners android:radius="@dimen/_15sdp" />-->
+    <!--            <stroke android:width="@dimen/_1sdp" android:color="@color/color_brown_light" />-->
+    <!--            &lt;!&ndash;<solid android:color="@color/color_blue_light"/>&ndash;&gt;-->
+    <!--        </shape>-->
+    <!--    </item>-->
+
+    <item android:state_pressed="true" >
+        <shape android:shape="rectangle">
+            <gradient android:startColor="#F99F00" android:endColor="#DB3069" android:angle="0"/>
+            <corners android:radius="25dp" />
+            <!--<solid android:color="@color/color_blue_light"/>-->
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="25dp" />
+            <stroke android:width="1dp" android:color="#fff" />
+        </shape>
+    </item>
+</selector>

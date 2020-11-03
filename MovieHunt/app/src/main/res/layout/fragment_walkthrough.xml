@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.zhpan.indicator.DrawableIndicator
+            android:layout_marginBottom="200dp"
+            android:layout_gravity="center|bottom"
+            android:id="@+id/indicator_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_gravity="center|bottom"
+            android:id="@+id/btn_next"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/bg_button_walkthrough"
+            android:checked="false"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:drawablePadding="5dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="Next"
+            android:textColor="@drawable/bg_text_color_radio"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
+
+    </FrameLayout>
+</layout>

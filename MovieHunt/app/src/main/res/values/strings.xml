@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MovieHunt</string>
+    <string name="str_walkthrough1">Get the first \nMovie and TV information</string>
+    <string name="str_walkthrough2">Know them movie\n is not worth Watching</string>
+    <string name="str_walkthrough3">Real-time \n update moive Trailer</string>
+
+    <!--error message-->
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="connect_timeout">Connect Timeout</string>
+    <string name="force_update_app">Please update app</string>
+    <string name="server_maintain_message">Server maintain, please try again later</string>
+    <string name="unknown_error">Error, please try again later</string>
+    <string name="unauThorized_error">Invalid username and/or password: You did not provide a valid login.</string>
+
+    <string name="category_now_playing">Now Playing</string>
+    <string name="category_popular">Popular</string>
+    <string name="category_top_rated">Top Rated</string>
+    <string name="category_upcoming">Upcoming</string>
+
+    <string name="category_now_list">Now List</string>
+    <string name="category_popular_list">Popular List</string>
+    <string name="category_top_rated_list">Top List</string>
+    <string name="category_upcoming_list">Upcoming List</string>
+
+    // login
+    <string name="str_dont_have_account">Don\'t have an account?</string>
+    <string name="str_register"><u>Register now</u></string>
+    <string name="str_login_welcome">Welcome back!</string>
+    <string name="str_login_please">Please login to your account.</string>
+    <string name="str_login_forgot_password">Forgot Password?</string>
+    <string name="str_login_using_social_media">Or Login using social media</string>
+    <string name="str_login">Login</string>
+    <string name="str_login_email_address">Email Address</string>
+    <string name="str_login_password">Password</string>
+</resources>

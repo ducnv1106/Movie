@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="listener"
+            type="com.ducnv.moviehunt.ui.moviedetail.MovieDetailListener" />
+
+        <variable
+            name="viewModel"
+            type="com.ducnv.moviehunt.ui.moviedetail.MovieDetailViewModel" />
+
+        <variable
+            name="imageRequestListener"
+            type="com.bumptech.glide.request.RequestListener&lt;Drawable>" />
+    </data>
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+  
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        app:isRefreshing="@{viewModel.isRefreshing}">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:scaleType="centerCrop"
+                    android:transitionName="@{viewModel.movie.id}"
+                    app:image="@{viewModel.movie.posterPath}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:requestListener="@{imageRequestListener}"
+                    tools:ignore="MissingConstraints" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:background="@drawable/bg_movie_detail"
+                    app:layout_constraintTop_toTopOf="@id/image_movie"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_16dp"
+                    android:paddingTop="45dp"
+                    android:paddingEnd="@dimen/padding_16dp"
+                    android:paddingBottom="@dimen/padding_16dp"
+                    android:src="@drawable/ic_back"
+                    app:onSingleClick="@{()->listener.onClickedBack()}"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_16dp"
+                    android:layout_marginEnd="@dimen/padding_16dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="5dp"
+                    android:maxLines="5"
+                    android:text="@{viewModel.movie.overview}"
+                    android:textColor="@color/clr_white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/image_movie"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_16dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:text="@{viewModel.movie.vote_average.toString()}"
+                    android:textColor="@color/clr_yellow"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_overview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints"
+                    tools:text="9.8" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:layout_marginBottom="@dimen/dimen_5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_vote_average"
+                    app:layout_constraintStart_toEndOf="@id/tv_vote_average"
+                    app:rating="@{viewModel.movie.vote_average}"
+                    tools:ignore="MissingConstraints"
+                    tools:rating="4" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_watching"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_5dp"
+                    android:text="@{viewModel.movie.vote_count + ` People Watching`}"
+                    android:textColor="@color/clr_grey"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_vote_average"
+                    app:layout_constraintStart_toStartOf="@id/tv_vote_average"
+                    tools:text="3000" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_5dp"
+                    android:text="@{viewModel.movie.title.toString()}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/clr_white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_watching"
+                    app:layout_constraintStart_toStartOf="@id/tv_watching"
+                    tools:ignore="MissingConstraints"
+                    tools:text="JUSTICE" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="@dimen/dimen_5dp"
+                    android:background="@drawable/bg_play_movie"
+                    android:src="@drawable/ic_play"
+                    app:layout_constraintBottom_toTopOf="@id/tv_overview"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_caster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_16dp"
+                    android:gravity="bottom"
+                    android:paddingTop="@dimen/padding_16dp"
+                    android:paddingBottom="@dimen/padding_16dp"
+                    android:text="Full Caster and Crew"
+                    android:textColor="@color/clr_white"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_movie"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listview_caster"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_16dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_caster"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/item_cast" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/viewall_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:onClick="@{()->listener.goToViewAllImage()}"
+                    android:padding="@dimen/padding_16dp"
+                    android:text="VIEW ALL"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_caster"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/listview_caster">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        app:isChecked="@{viewModel.isLike}"
+                        android:id="@+id/checkbox_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_ic_like_movie_detail_selector"
+                        android:button="@null"
+                        android:foreground="@drawable/ic_like_movie_detail_selector"
+                        android:foregroundGravity="center"
+                        tools:ignore="MissingConstraints" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/listview_caster"
+                    tools:ignore="MissingConstraints">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        app:isChecked="@{viewModel.following.favorite}"
+                        android:id="@+id/checkbox_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_ic_favorite_movie_detail_selector"
+                        android:button="@null"
+                        android:foreground="@drawable/ic_favorite_movie_detail_selector"
+                        android:foregroundGravity="center"
+                        tools:ignore="MissingConstraints" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    app:layout_constraintBottom_toBottomOf="parent "
+                    android:layout_marginBottom="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="40dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/listview_caster">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/checkbox_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_ic_rating_movie_detail_selector"
+                        android:button="@null"
+                        android:foreground="@drawable/ic_rating_movie_detail_selector"
+                        android:foregroundGravity="center"
+                        tools:ignore="MissingConstraints" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <View
+            android:layout_marginBottom="@dimen/dimen_5dp"
+            android:onClick="@{()->listener.onShowBottomSheetIntroduction()}"
+            android:layout_gravity="bottom|center"
+            android:background="@drawable/bg_view_bottomsheet_movie_detail"
+            android:layout_width="150dp"
+            android:layout_height="5dp"/>
+    </FrameLayout>
+</layout>

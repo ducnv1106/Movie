@@ -1,0 +1,116 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    rue<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--        <item name="android:windowBackground">@drawable/background_splash</item>-->
+<!--                <item name="android:windowContentOverlay">true</item>-->
+        <item name="android:windowActionBar">true</item>
+        <item name="android:windowFullscreen">true</item>
+<!--    <item name="android:windowActionBarOverlay">true</item>-->
+
+    </style>
+
+    <style name="HomeTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+<!--        <item name="android:windowFullscreen">false</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--        <item name="android:fitsSystemWindows">false</item>-->
+
+
+    </style>
+
+    <style name="BottomNavigation">
+        <!--        <item name="android:background">@color/clr_white</item>-->
+        <item name="colorPrimary">#D11717</item>
+        <item name="colorOnPrimary">#03A9F4</item>
+        <!--        <item name="itemBackground">@drawable/navigation_bar_item_bg</item>-->
+        <!--        <item name="itemIconTint">@color/navigation_bar_txt_color</item>-->
+        <!--        <item name="itemTextColor">@color/navigation_bar_txt_color</item>-->
+        <!--        <item name="paddingStart">@dimen/bottom_navigation_padding</item>-->
+        <!--        <item name="paddingEnd">@dimen/bottom_navigation_padding</item>-->
+    </style>
+
+    <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:numStars">5</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:progressTint">@color/clr_yellow</item>
+    </style>
+
+    <style name="NoActionBarActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <declare-styleable name="IndefinitePagerIndicator">
+        <attr name="dotCount" format="integer" />
+        <attr name="fadingDotCount" format="integer" />
+        <attr name="dotRadius" format="dimension" />
+        <attr name="selectedDotRadius" format="dimension" />
+        <attr name="dotColor" format="color" />
+        <attr name="selectedDotColor" format="color" />
+        <attr name="dotSeparation" format="dimension" />
+        <attr name="supportRTL" format="boolean" />
+        <attr name="verticalSupport" format="boolean" />
+    </declare-styleable>
+
+    <style name="SearchTextStyle">
+        <!-- Custom values write to here for SearchEditText. -->
+<!--        <item name="android:elevation">@dimen/dimen_10dp</item>-->
+        <item name="android:drawableEnd">@drawable/ic_search</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:enabled">true</item>
+        <item name="android:hint">Search</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLength">15</item>
+        <item name="android:inputType">textCapSentences</item>
+        <item name="android:textColorHint">#80999999</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+       <item name="passwordToggleEnabled">true</item>
+    </style>
+
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/custom_bottomsheet</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    //Custom_Bootom_Sheet
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="android:navigationBarColor">@color/clr_white</item>
+    </style>
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="MyDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/to_bottom</item>
+        <item name="android:windowExitAnimation">@anim/out_bottom</item>
+        <item name="android:background">@drawable/custom_bottomsheet</item>
+    </style>
+</resources>

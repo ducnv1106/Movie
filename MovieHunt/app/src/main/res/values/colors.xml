@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#121e2d</color>
+    <color name="colorPrimaryDark">#121e2d</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="clr_white">#fff</color>
+    <color name="clr_yellow">#FECB2F</color>
+    <color name="clr_grey">#B3FFFFFF</color>
+    <color name="defaultcounterTextColor">#ED3C3C</color>
+
+</resources>

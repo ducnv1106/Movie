@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.ducnv.moviehunt.ui.home.movie.MovieViewModel" />
+
+        <variable
+            name="listener"
+            type="com.ducnv.moviehunt.ui.home.movie.MovieListener" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isRefreshing="@{viewModel.isRefreshing}">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:paddingStart="16dp"
+                    android:paddingTop="55dp"
+                    android:text="MOVIES"
+                    android:textColor="@color/clr_white"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+
+                <androidx.cardview.widget.CardView
+
+                    app:cardBackgroundColor="#fff"
+                    android:id="@+id/toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_title"
+                    tools:ignore="MissingConstraints">
+                    <AutoCompleteTextView
+                        android:inputType="textFilter"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black"
+                        android:id="@+id/search_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableEnd="@drawable/ic_search"
+                        android:drawablePadding="5dp"
+                        android:drawableTint="@android:color/black"
+                        android:hint="Search View"
+                        android:imeOptions="actionSearch"
+                        android:textSize="15sp"
+                        android:padding="4dp"
+                        android:textColorHint="@android:color/black"
+                        tools:ignore="MissingConstraints" />
+                </androidx.cardview.widget.CardView>
+
+                <com.ducnv.moviehunt.ui.widgets.banner.BannerLayout
+                    android:id="@+id/listViewbBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    app:autoPlaying="true"
+                    app:centerScale="1.3"
+                    app:itemSpace="20"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:moveSpeed="1.8"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16sp"
+                    android:text="Now Play"
+                    android:textColor="@color/clr_white"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/listViewbBanner"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/viewall_movie_nowplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:onClick="@{()->listener.onClickedViewAllNowPlay()}"
+                    android:padding="16dp"
+                    android:text="VIEW ALL"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listViewNowMovie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/item_movie_now" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16sp"
+                    android:text="Popular"
+                    android:textColor="@color/clr_white"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/listViewNowMovie"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:onClick="@{()->listener.onClickedViewAllPopular()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="VIEW ALL"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/title_popular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title_popular"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listViewPopular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/title_popular"
+                    app:spanCount="2"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:listitem="@layout/item_movie" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title_toprate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:padding="16sp"
+                    android:text="Top Rated"
+                    android:textColor="@color/clr_white"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/listViewPopular"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:onClick="@{()->listener.onClickedViewAllTopRated()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="VIEW ALL"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/title_toprate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title_toprate"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listViewToprate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/title_toprate"
+                    app:spanCount="2"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:listitem="@layout/item_movie_now" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title_upcoming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:padding="16sp"
+                    android:text="Upcoming"
+                    android:textColor="@color/clr_white"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/listViewToprate"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:onClick="@{()->listener.onClickedViewAllUpcoming()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="VIEW ALL"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/title_upcoming"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title_upcoming"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listViewUpcoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/title_upcoming"
+                    app:spanCount="2"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:listitem="@layout/item_movie_now" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</layout>

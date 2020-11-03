@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.recyclerview.widget.RecyclerView
+    android:background="#fff"
+    android:id="@+id/listImage"
+    app:spanCount="2"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    tools:listitem="@layout/item_gird_image_cast"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</androidx.recyclerview.widget.RecyclerView>
+</layout>

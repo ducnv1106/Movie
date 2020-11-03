@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_activity"
+    app:startDestination="@id/splash"
+    tools:ignore="UnusedNavigation">
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.ducnv.moviehunt.ui.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/to_walkthrough"
+            app:destination="@id/walkthrough"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/walkthrough"
+        android:name="com.ducnv.moviehunt.ui.walkthrough.WalkThroughFragment"
+        tools:layout="@layout/fragment_walkthrough">
+        <action
+            android:id="@+id/to_login"
+            app:destination="@id/login"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.ducnv.moviehunt.ui.login.LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+</navigation>
