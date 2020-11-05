@@ -30,6 +30,8 @@ class MovieViewModel(private val userRepository: UserRepository,private val pref
 
     val dataSearchMovie = MutableLiveData<BaseListResponse<Movie>>()
 
+    val movieList=MutableLiveData<List<Movie>>()
+
     // refresh
     val isRefreshing = MutableLiveData<Boolean>().apply { value=false }
 
@@ -97,6 +99,16 @@ class MovieViewModel(private val userRepository: UserRepository,private val pref
         prefs.put(Constants.GUEST_SESSION,value=value)
     }
 
+    fun getMovieList(){
+        viewModelScope.launch {
+            try {
+
+              movieList.value= userRepository.getListMovieLocal()
+            }catch (e:Exception){
+
+            }
+        }
+    }
 
 
 }

@@ -30,6 +30,7 @@ import com.ducnv.moviehunt.data.model.Cast
 import com.ducnv.moviehunt.data.model.Movie
 import com.ducnv.moviehunt.ui.home.HomeActivity
 import com.ducnv.moviehunt.ui.moviedetail.bottomsheet.IntroductionBottomSheet
+import com.ducnv.moviehunt.utils.checkedChangeListener
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,19 +47,14 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         prepareTransitions()
         startPostponedEnterTransition()
         postponeEnterTransition()
+        listenerCheckedChange()
     }
 
     override fun setupView() {
-       binding.checkboxLike.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
-           override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-              viewModel.isLike.value=isChecked
-           }
 
-       })
         viewModel.apply {
             cast.observe(viewLifecycleOwner, Observer {
                 castAdapter.submitList(it)
@@ -67,7 +63,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             })
             args.movie.let {
                 movie.value = it
-                loadData(movieId = it.id)
+                loadData(movieId = it.id.toInt())
+                checkMovieLike(it.id)
 
             }
 
@@ -111,7 +108,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         binding.refreshLayout.setOnRefreshListener {
             viewModel.apply {
                 args.movie?.let {
-                    refreshData(it.id)
+                    refreshData(it.id.toInt())
                 }
             }
         }
@@ -159,10 +156,29 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
         }
 
+    }
 
-        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
+    override fun onStop() {
+        /**
+         * insert or delete data Movie to local
+         */
+        viewModel.apply {
+            if (likeChange?.value==true) insertLikeMovie()
+            else deleteLikeMovie()
+        }
+        super.onStop()
 
     }
 
+
+
+    /**
+     * listener change checked checkbox
+     */
+    private fun listenerCheckedChange(){
+        binding.checkboxLike.checkedChangeListener {
+            viewModel.likeChange.value=it
+        }
+    }
 
 }

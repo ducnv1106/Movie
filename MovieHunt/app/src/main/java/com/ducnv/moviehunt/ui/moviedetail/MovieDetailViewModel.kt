@@ -1,6 +1,8 @@
 package com.ducnv.moviehunt.ui.moviedetail
 
-import android.util.Log
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ducnv.moviehunt.constants.Constants
@@ -9,9 +11,10 @@ import com.ducnv.moviehunt.data.repository.UserRepository
 import com.ducnv.moviehunt.data.model.Cast
 import com.ducnv.moviehunt.data.model.Following
 import com.ducnv.moviehunt.data.model.Movie
-import com.ducnv.moviehunt.data.remote.response.GetListCastAndCrewResponse
 import com.ducnv.moviehunt.ui.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel(
     private val userRepository: UserRepository,
@@ -24,13 +27,13 @@ class MovieDetailViewModel(
 
     val following = MutableLiveData<Following>()
 
-    val isLike = MutableLiveData<Boolean>().apply { value = false }
-
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
 
+     val likeChange = MutableLiveData<Boolean>().apply { value = false }
 
-    fun fecthFollow(movieId: Int) {
 
+
+    private fun fetchFollow(movieId: Int) {
 
         viewModelScope.launch {
 
@@ -67,7 +70,7 @@ class MovieDetailViewModel(
         }
         fetchCastAndCrew(movieId)
 
-        fecthFollow(movieId)
+        fetchFollow(movieId)
     }
 
     fun refreshData(movieId: Int) {
@@ -85,8 +88,46 @@ class MovieDetailViewModel(
         isLoading.value = false
     }
 
-    fun getSessionID(): String? = prefs.get(Constants.SESSION_ID)
+    private fun getSessionID(): String? = prefs.get(Constants.SESSION_ID)
 
-    fun getGuestSession(): String? = prefs.get(Constants.GUEST_SESSION)
+    private fun getGuestSession(): String? = prefs.get(Constants.GUEST_SESSION)
+
+    fun checkMovieLike(id: String) {
+        viewModelScope.launch {
+            try {
+                val likeMovie = userRepository.getMovieLocal(id)
+                likeChange.value = likeMovie?.isLike == true
+
+
+            } catch (e: Exception) {
+                onError(e)
+            }
+
+        }
+    }
+
+    fun insertLikeMovie() {
+       viewModelScope.launch {
+           try {
+               movie.value?.isLike=true
+               userRepository.insertMovieLocal(movie.value!!)
+           }catch (e:Exception){
+               onError(e)
+           }
+       }
+    }
+    fun deleteLikeMovie(){
+        viewModelScope.launch {
+            try {
+                movie.value?.isLike=false
+                userRepository.deleteMovieLocal(movie.value?.id.toString())
+            }catch (e:Exception){
+
+            }
+        }
+    }
+
+
+
 
 }

@@ -43,6 +43,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(), Movi
     override fun setupView() {
         viewModel.apply {
             loadData()
+            getMovieList()
         }
         setupRcview()
         binding.listener = this
@@ -73,10 +74,12 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(), Movi
 
 
         viewModel.apply {
-
+            movieList.observe(viewLifecycleOwner, Observer {
+                Log.e("movieList",it.size.toString())
+            })
             guestSession.observe(viewLifecycleOwner, Observer {
                 putGuestSession(it.guest_session_id)
-                Log.e("movie",it.guest_session_id)
+
             })
             dataNowMovie.observe(viewLifecycleOwner, Observer {
                 nowMovieAdapter.submitList(it.results)

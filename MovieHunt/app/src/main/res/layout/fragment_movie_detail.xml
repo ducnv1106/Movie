@@ -204,7 +204,6 @@
                     app:layout_constraintTop_toBottomOf="@id/listview_caster">
 
                     <androidx.appcompat.widget.AppCompatCheckBox
-                        app:isChecked="@{viewModel.isLike}"
                         android:id="@+id/checkbox_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -212,6 +211,7 @@
                         android:button="@null"
                         android:foreground="@drawable/ic_like_movie_detail_selector"
                         android:foregroundGravity="center"
+                        app:isChecked="@{viewModel.likeChange}"
                         tools:ignore="MissingConstraints" />
                 </androidx.cardview.widget.CardView>
 

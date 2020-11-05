@@ -77,7 +77,7 @@ class MovieNowPlayFragment :
 
     private fun toMovieDetail(movie: Movie, imageView: ImageView) {
         val extras = FragmentNavigatorExtras(
-            imageView to movie.getId()
+            imageView to movie.id
         )
         findNavController().navigate(MovieNowPlayFragmentDirections.toMovieDetail(movie), extras)
     }

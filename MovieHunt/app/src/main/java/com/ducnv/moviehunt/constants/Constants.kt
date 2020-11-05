@@ -23,6 +23,8 @@ object Constants {
     const val SESSION_ID="SESSION_ID"
     const val GUEST_SESSION="GUEST_SESSION"
 
+
+
     // 6047425bf6a979c59e7254464fcaa17b8aa2c5ae
 
     //bb7c12a257260ff4c05cb5e0820fafcf21a14c24

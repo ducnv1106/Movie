@@ -80,9 +80,9 @@ class MovieTopRatedFragment :
 
     private fun toMovieDetail(movie: Movie, imageView: ImageView) {
         val extras = FragmentNavigatorExtras(
-            imageView to movie.getId()
+            imageView to movie.id
         )
-        Log.e("movie", movie.getId())
+        Log.e("movie", movie.id)
 
         findNavController().navigate(MovieNowPlayFragmentDirections.toMovieDetail(movie), extras)
     }

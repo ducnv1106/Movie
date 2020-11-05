@@ -47,10 +47,11 @@ fun ImageView.loadImage(
         apply(requestOption).into(this@loadImage)
     }
 }
+
 @BindingAdapter("transitionName")
-fun View.setTransitionName(string: String?){
-    if (string.isNullOrBlank()) this.transitionName=R.drawable.error_image.toString()
-    else this.transitionName=string
+fun View.setTransitionName(string: String?) {
+    if (string.isNullOrBlank()) this.transitionName = R.drawable.error_image.toString()
+    else this.transitionName = string
 }
 
 @BindingAdapter("enableRefreshing")
@@ -59,10 +60,12 @@ fun SwipeRefreshLayout.enableRefresh(enable: Boolean?) {
 }
 
 @BindingAdapter("isChecked")
-fun CheckBox.isChecked(checked:Boolean){
+fun CheckBox.isChecked(checked: Boolean) {
 
-    isChecked=checked==true
+    isChecked = checked == true
+
 }
+
 @BindingAdapter("isRefreshing")
 fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?) {
     isRefreshing = refreshing == true
@@ -90,33 +93,7 @@ fun RatingBar.rating(rating: Double?) {
     this.rating = rating?.toFloat()?.div(2) ?: 0.0f
 }
 
-fun AppCompatRadioButton.onChangeCheckedRadio(listener: CompoundButton.OnCheckedChangeListener) {
-
-    when (this.id) {
-        radio_like.id -> {
-            if (radio_like.isChecked) return
-            radio_like.isChecked = true
-            radio_favorite.isChecked = false
-            radio_rating.isChecked = false
-
-
-        }
-        radio_favorite.id -> {
-            if (radio_favorite.isChecked) return
-            radio_like.isChecked = false
-            radio_favorite.isChecked = true
-            radio_rating.isChecked = false
-
-
-        }
-        radio_rating.id -> {
-            if (radio_rating.isChecked) return
-            radio_like.isChecked = false
-            radio_favorite.isChecked = false
-            radio_rating.isChecked = true
-
-
-        }
-
-    }
+@BindingAdapter("checkedChangeListener")
+fun CheckBox.checkedChangeListener(execution: (Boolean) -> Unit) {
+    setOnCheckedChangeListener { _, isChecked -> execution.invoke(isChecked) }
 }

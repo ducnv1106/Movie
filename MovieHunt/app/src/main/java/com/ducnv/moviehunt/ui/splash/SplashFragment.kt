@@ -19,7 +19,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding,SplashViewModel>(){
 
     override fun onStart() {
         super.onStart()
-        activityScope.launch {
+        GlobalScope.launch {
             delay(1000)
             navigateOther()
         }

@@ -45,14 +45,14 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, VieModel : BaseViewMo
             root.isClickable = true
             binding.executePendingBindings()
         }
-
+        setupView()
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupView()
+
         viewModel.apply {
             isLoading.observe(viewLifecycleOwner, Observer {
                 handleLoading(it)

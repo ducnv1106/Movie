@@ -10,9 +10,9 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "movie")
 data class Movie(
     @PrimaryKey(autoGenerate = false)
+    val id: String,
     val adult: Boolean? = null,
     val backdrop_path: String? = null,
-    val id: Int,
     val imdb_id: String? = null,
     val original_language: String? = null,
     val original_title: String? = null,
@@ -28,7 +28,7 @@ data class Movie(
     val video:Boolean?=null,
     val vote_average:Double?=null,
     val vote_count:Int?=null,
-    val isFavorite:Boolean?=null
+    var isLike:Boolean?=null
 ) :  Parcelable {
     fun getFullBackdropPath() =
         (if (backdrop_path.isNullOrBlank()) null else Constants.SMALL_IMAGE_URL + backdrop_path)
@@ -36,6 +36,6 @@ data class Movie(
     fun getPosterPath() =
         if (poster_path.isNullOrBlank()) null else Constants.SMALL_IMAGE_URL + poster_path
 
-    fun getId() = this.id.toString()
+
 
 }

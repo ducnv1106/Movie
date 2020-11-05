@@ -101,8 +101,11 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Lifecycles only (without ViewModel or LiveData)
+
     //room
     implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+//    implementation "androidx.room:room-ktx:$room_version"
 
     implementation 'com.github.rbro112:Android-Indefinite-Pager-Indicator:1.2'
     implementation 'com.github.zhpanvip:viewpagerindicator:+'
@@ -133,6 +136,7 @@ dependencies {
 
     // imageview cicler
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 
 }
