@@ -1,24 +1,17 @@
-package com.ducnv.moviehunt.ui.moviedetail
+package com.ducnv.moviehunt.ui.moviedetail.remote
 
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.Transformation
-import android.widget.CompoundButton
-import android.widget.ImageView
-import androidx.core.app.SharedElementCallback
-import androidx.lifecycle.MutableLiveData
+import android.view.animation.AnimationUtils
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -26,12 +19,9 @@ import com.bumptech.glide.request.target.Target
 import com.ducnv.moviehunt.databinding.FragmentMovieDetailBinding
 import com.ducnv.moviehunt.ui.base.BaseFragment
 import com.ducnv.moviehunt.R
-import com.ducnv.moviehunt.data.model.Cast
-import com.ducnv.moviehunt.data.model.Movie
-import com.ducnv.moviehunt.ui.home.HomeActivity
-import com.ducnv.moviehunt.ui.moviedetail.bottomsheet.IntroductionBottomSheet
 import com.ducnv.moviehunt.utils.checkedChangeListener
-import kotlinx.coroutines.*
+import com.ducnv.moviehunt.utils.setSingleClick
+
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>(),
@@ -45,15 +35,13 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     private val args: MovieDetailFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         prepareTransitions()
         startPostponedEnterTransition()
-        postponeEnterTransition()
-        listenerCheckedChange()
-    }
-
-    override fun setupView() {
+        if (savedInstanceState == null) {
+            postponeEnterTransition()
+        }
 
         viewModel.apply {
             cast.observe(viewLifecycleOwner, Observer {
@@ -67,7 +55,13 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 checkMovieLike(it.id)
 
             }
+            following.observe(viewLifecycleOwner, Observer {
+                checkRating()
 
+            })
+            rating.observe(viewLifecycleOwner, Observer {
+                Log.e("movieRating", it.toString())
+            })
 
         }
 
@@ -93,10 +87,15 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 return false
             }
         }
-        postponeEnterTransition()
+
         binding.listener = this
+    }
+
+    override fun setupView() {
         setupRcv()
         onRefreshListener()
+        listenerCheckedChange()
+        listenerClicked()
     }
 
     private fun setupRcv() {
@@ -116,24 +115,26 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     override fun onClickedBack() {
 
-       findNavController().navigateUp()
+        findNavController().navigateUp()
 
     }
 
     override fun goToViewAllImage() {
 
-        val dataImage= arrayListOf<String>()
+        val dataImage = arrayListOf<String>()
         viewModel.apply {
             cast.value?.let {
-                if (cast.value?.size!! > 0){
-                    it.forEach { cast->
+                if (cast.value?.size!! > 0) {
+                    it.forEach { cast ->
                         cast.getFullProfilePath()?.let { imageUrl ->
                             dataImage.add(imageUrl)
                         }
                     }
-                    findNavController().navigate(MovieDetailFragmentDirections.toFragmentGridImageCast(
-                       dataImage.toTypedArray()
-                    ))
+                    findNavController().navigate(
+                        MovieDetailFragmentDirections.toFragmentGridImageCast(
+                            dataImage.toTypedArray()
+                        )
+                    )
                 }
             }
         }
@@ -142,7 +143,11 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     override fun onShowBottomSheetIntroduction() {
         viewModel.movie.value?.let {
-            findNavController().navigate(MovieDetailFragmentDirections.toBottomSheetIntroduction(it))
+            findNavController().navigate(
+                MovieDetailFragmentDirections.toBottomSheetIntroduction(
+                    it
+                )
+            )
         }
 
 
@@ -153,7 +158,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             sharedElementEnterTransition = TransitionInflater.from(context)
                 .inflateTransition(R.transition.image_shared_element_transition)
-
         }
 
     }
@@ -163,7 +167,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
          * insert or delete data Movie to local
          */
         viewModel.apply {
-            if (likeChange?.value==true) insertLikeMovie()
+            if (likeChange?.value == true) insertLikeMovie()
             else deleteLikeMovie()
         }
         super.onStop()
@@ -171,14 +175,54 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
     }
 
 
-
     /**
      * listener change checked checkbox
      */
-    private fun listenerCheckedChange(){
+    private fun listenerCheckedChange() {
         binding.checkboxLike.checkedChangeListener {
-            viewModel.likeChange.value=it
+
+            viewModel.likeChange.value = it
+
+
         }
     }
 
+    // show Dialog fragment
+    private fun listenerClicked() {
+
+        viewModel.apply {
+            binding.apply {
+                checkboxLike.setSingleClick {
+                    if (likeChange?.value == true) findNavController().navigate(
+                        MovieDetailFragmentDirections.toDialogLikeMovie(
+                            R.string.saved
+                        )
+                    )
+                    else findNavController().navigate(
+                        MovieDetailFragmentDirections.toDialogLikeMovie(
+                            R.string.un_saved
+                        )
+                    )
+                }
+
+                checkboxFavorite.setSingleClick {
+                    findNavController().navigate(MovieDetailFragmentDirections.toDialogFavoriteMovie())
+                }
+
+                checkboxRating.setSingleClick {
+                    Log.e("movie","rating")
+                    if (containerRating.isGone){
+//                        containerRating.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.to_right_navigation))
+                        containerRating.visibility=View.VISIBLE
+                    }
+                    else containerRating.visibility=View.GONE
+
+                }
+            }
+
+        }
+
+    }
+
 }
+

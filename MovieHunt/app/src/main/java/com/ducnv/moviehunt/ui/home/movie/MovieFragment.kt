@@ -4,27 +4,18 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.ducnv.moviehunt.R
 
 import com.ducnv.moviehunt.databinding.FragmentMovieBinding
 import com.ducnv.moviehunt.ui.base.BaseFragment
 import com.ducnv.moviehunt.ui.home.HomeFragmentDirections
-import com.ducnv.moviehunt.ui.moviedetail.MovieDetailFragment
-import com.ducnv.moviehunt.ui.moviedetail.MovieDetailFragmentDirections
 
 import com.ducnv.moviehunt.ui.widgets.banner.LocalDataAdapter
 import com.ducnv.moviehunt.utils.hideKeyboardwithoutPopulate
 import kotlinx.android.synthetic.main.fragment_movie.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

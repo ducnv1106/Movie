@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="item"
+            type="com.ducnv.moviehunt.data.model.Movie" />
+
+        <variable
+            name="requestListener"
+            type="com.bumptech.glide.request.RequestListener&lt;Drawable>" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_like_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                app:requestListener="@{requestListener}"
+                app:image="@{item.posterPath}"
+                android:id="@+id/image_poster_like_movie_fragment"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:transitionName="@{item.id}"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:transitionName="@{item.title}"
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:text="@{item.title}"
+                android:textColor="@color/clr_white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_poster_like_movie_fragment"
+                tools:ignore="MissingConstraints"
+                tools:text="Hello" />
+
+            <RatingBar
+                android:transitionName="@{item.vote_average.toString()}"
+                android:id="@+id/rating"
+                style="@style/RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="@dimen/dimen_5dp"
+                android:isIndicator="true"
+                app:layout_constraintStart_toEndOf="@id/image_poster_like_movie_fragment"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:rating="@{item.vote_average}"
+                tools:ignore="MissingConstraints"
+                tools:rating="4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:transitionName="@{item.vote_count.toString()}"
+                android:id="@+id/tv_reviews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="@dimen/dimen_5dp"
+                android:text="@{item.vote_count.toString()+` reviews`}"
+                android:textColor="@color/clr_grey"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_poster_like_movie_fragment"
+                app:layout_constraintTop_toBottomOf="@id/rating"
+                tools:text="3000" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="@dimen/dimen_5dp"
+                android:drawableStart="@drawable/ic_clock"
+                android:drawablePadding="@dimen/dimen_5dp"
+                android:text="@{item.duration}"
+                android:textColor="@color/clr_grey"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_poster_like_movie_fragment"
+                app:layout_constraintTop_toBottomOf="@id/tv_reviews"
+                tools:text="2h15" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="@dimen/dimen_5dp"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="@dimen/dimen_5dp"
+                android:text="@{item.date}"
+                android:textColor="@color/clr_grey"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_poster_like_movie_fragment"
+                app:layout_constraintTop_toBottomOf="@id/tv_duration"
+                tools:text="07-04-1995" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

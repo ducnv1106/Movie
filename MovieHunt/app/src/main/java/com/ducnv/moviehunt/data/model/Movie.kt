@@ -4,7 +4,10 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ducnv.moviehunt.constants.Constants
+import com.ducnv.moviehunt.utils.formatHourMinutes
 import kotlinx.android.parcel.Parcelize
+
+const val PLACEHOLDER = "--"
 
 @Parcelize
 @Entity(tableName = "movie")
@@ -20,22 +23,24 @@ data class Movie(
     val popularity: Double? = null,
     val poster_path: String? = null,
     val release_date: String? = null,
-    val revenue:Int?=null,
-    val runtime:Int?=null,
-    val status:String?=null,
-    val tagline:String?=null,
-    val title:String?,
-    val video:Boolean?=null,
-    val vote_average:Double?=null,
-    val vote_count:Int?=null,
-    var isLike:Boolean?=null
-) :  Parcelable {
+    val revenue: Int? = null,
+    val runtime: Int? = null,
+    val status: String? = null,
+    val tagline: String? = null,
+    val title: String?,
+    val video: Boolean? = null,
+    val vote_average: Double? = null,
+    val vote_count: Int? = null,
+    var isLike: Boolean? = null
+) : Parcelable {
     fun getFullBackdropPath() =
         (if (backdrop_path.isNullOrBlank()) null else Constants.SMALL_IMAGE_URL + backdrop_path)
 
     fun getPosterPath() =
         if (poster_path.isNullOrBlank()) null else Constants.SMALL_IMAGE_URL + poster_path
 
+    fun getDuration() = this.runtime?.formatHourMinutes() ?: PLACEHOLDER
 
+    fun getDate() = this.release_date ?: PLACEHOLDER
 
 }

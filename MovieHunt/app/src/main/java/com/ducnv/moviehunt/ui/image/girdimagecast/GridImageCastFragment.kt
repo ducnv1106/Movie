@@ -19,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.ducnv.moviehunt.R
 import com.ducnv.moviehunt.data.model.Cast
 import com.ducnv.moviehunt.ui.home.HomeActivity
+import com.ducnv.moviehunt.utils.setSingleClick
 
 class GridImageCastFragment : BaseFragment<FragmentGridImageCastBinding, GridImageCastViewModel>(){
 
@@ -51,7 +52,6 @@ class GridImageCastFragment : BaseFragment<FragmentGridImageCastBinding, GridIma
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         args.let {
             adapter.submitList(it.listImage.toCollection(ArrayList()))
         }

@@ -9,7 +9,7 @@
         android:title="TV"/>
 
     <item android:id="@+id/like"
-        android:title="FAVORITE"
+        android:title="LIKE"
         android:icon="@drawable/bottom_navigation_ic_like_selector"/>
     <item android:id="@+id/profile"
         android:title="PROFILE"

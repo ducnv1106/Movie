@@ -41,6 +41,12 @@
             app:popEnterAnim="@anim/to_left_navigation"
             app:popExitAnim="@anim/out_left_navigation"
             app:popUpToInclusive="true" />
+        <action
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/to_left_navigation"
+            app:popExitAnim="@anim/out_left_navigation"
+            android:id="@+id/to_movie_detail"
+            app:destination="@id/movie_detail"/>
     </fragment>
     <fragment
         android:id="@+id/now_movie_viewall"
@@ -91,7 +97,7 @@
     </fragment>
     <fragment
         android:id="@+id/movie_detail"
-        android:name="com.ducnv.moviehunt.ui.moviedetail.MovieDetailFragment"
+        android:name="com.ducnv.moviehunt.ui.moviedetail.remote.MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail">
         <argument
             android:name="movie"
@@ -111,7 +117,14 @@
             app:enterAnim="@anim/to_bottom"
             app:exitAnim="@anim/out_bottom"
             app:popUpToInclusive="true" />
-
+        <action
+            android:id="@+id/to_dialog_like_movie"
+            app:destination="@id/dialog_like_movie"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_dialog_favorite_movie"
+            app:destination="@id/dialog_favorite_movie"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/fragment_grid_image_cast"
@@ -141,4 +154,17 @@
             android:name="movie"
             app:argType="com.ducnv.moviehunt.data.model.Movie" />
     </dialog>
+    <dialog
+        android:id="@+id/dialog_like_movie"
+        android:name="com.ducnv.moviehunt.ui.moviedetail.dialogfragment.like.LikeMovieDialogFragment"
+        tools:layout="@layout/dialog_fragment_like_movie">
+        <argument
+            android:name="request"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/dialog_favorite_movie"
+        android:name="com.ducnv.moviehunt.ui.moviedetail.dialogfragment.favorite.FavoriteMovieDialogFragment"
+        tools:layout="@layout/dialog_fragment_like_movie" />
+
 </navigation>

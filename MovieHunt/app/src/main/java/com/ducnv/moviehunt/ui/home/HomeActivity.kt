@@ -18,6 +18,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     companion object {
         var currentPosition: Int = 0
+        var currentPositionItemLikeMovie=0
         const val KEY_CURRENT_POSITION = "ducnv1106"
     }
 

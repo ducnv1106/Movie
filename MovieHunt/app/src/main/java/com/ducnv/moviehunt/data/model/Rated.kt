@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Rated (
-    val value:Float
+    val value:Float?
 ):Parcelable

@@ -137,6 +137,8 @@ dependencies {
     // imageview cicler
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //Progress Button
+    implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
 
 
 }

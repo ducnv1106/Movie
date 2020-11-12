@@ -3,10 +3,7 @@ package com.ducnv.moviehunt.utils
 import android.graphics.drawable.Drawable
 import android.os.SystemClock
 import android.view.View
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.ImageView
-import android.widget.RatingBar
+import android.widget.*
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -60,7 +57,7 @@ fun SwipeRefreshLayout.enableRefresh(enable: Boolean?) {
 }
 
 @BindingAdapter("isChecked")
-fun CheckBox.isChecked(checked: Boolean) {
+fun CompoundButton.isChecked(checked: Boolean) {
 
     isChecked = checked == true
 

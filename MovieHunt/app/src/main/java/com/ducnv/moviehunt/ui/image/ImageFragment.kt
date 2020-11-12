@@ -77,16 +77,8 @@ class ImageFragment : BaseFragment<FragmentImageBinding, ImageViewModel>() {
 
         }
         binding.requestListener = requestListener
-
-//        Glide.with(this).load(imageUrl).addListener(requestListener).into(binding.imageCast)
         binding.imageCast.transitionName=imageUrl
-//        binding.apply {
-//            root.isClickable = true
-//            binding.setVariable(BR.imageUrl, imageUrl)
-//            binding.setVariable(BR.requestListener,requestListener)
-////            binding.imageCast.transitionName=image.toString()
-//            binding.executePendingBindings()
-//        }
+
 
 
     }

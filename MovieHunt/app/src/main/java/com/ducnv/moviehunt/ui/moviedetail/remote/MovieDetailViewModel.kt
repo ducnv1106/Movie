@@ -1,8 +1,5 @@
-package com.ducnv.moviehunt.ui.moviedetail
+package com.ducnv.moviehunt.ui.moviedetail.remote
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ducnv.moviehunt.constants.Constants
@@ -12,9 +9,7 @@ import com.ducnv.moviehunt.data.model.Cast
 import com.ducnv.moviehunt.data.model.Following
 import com.ducnv.moviehunt.data.model.Movie
 import com.ducnv.moviehunt.ui.base.BaseViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel(
     private val userRepository: UserRepository,
@@ -29,9 +24,9 @@ class MovieDetailViewModel(
 
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
 
-     val likeChange = MutableLiveData<Boolean>().apply { value = false }
+    val likeChange = MutableLiveData<Boolean>().apply { value = false }
 
-
+    val rating=MutableLiveData<Boolean>().apply { value=false }
 
     private fun fetchFollow(movieId: Int) {
 
@@ -44,7 +39,7 @@ class MovieDetailViewModel(
                     guest_session_id = getGuestSession() ?: "null"
                 )
             } catch (e: Exception) {
-                onError(e)
+
             }
         }
     }
@@ -92,12 +87,13 @@ class MovieDetailViewModel(
 
     private fun getGuestSession(): String? = prefs.get(Constants.GUEST_SESSION)
 
+
+
     fun checkMovieLike(id: String) {
         viewModelScope.launch {
             try {
                 val likeMovie = userRepository.getMovieLocal(id)
                 likeChange.value = likeMovie?.isLike == true
-
 
             } catch (e: Exception) {
                 onError(e)
@@ -107,27 +103,32 @@ class MovieDetailViewModel(
     }
 
     fun insertLikeMovie() {
-       viewModelScope.launch {
-           try {
-               movie.value?.isLike=true
-               userRepository.insertMovieLocal(movie.value!!)
-           }catch (e:Exception){
-               onError(e)
-           }
-       }
-    }
-    fun deleteLikeMovie(){
         viewModelScope.launch {
             try {
-                movie.value?.isLike=false
+                movie.value?.isLike = true
+                userRepository.insertMovieLocal(movie.value!!)
+            } catch (e: Exception) {
+                onError(e)
+            }
+        }
+    }
+
+    fun deleteLikeMovie() {
+        viewModelScope.launch {
+            try {
+                movie.value?.isLike = false
                 userRepository.deleteMovieLocal(movie.value?.id.toString())
-            }catch (e:Exception){
+            } catch (e: Exception) {
 
             }
         }
     }
 
-
+    fun checkRating(){
+        following.value?.rated?.value.let {
+            rating.value=true
+        }
+    }
 
 
 }

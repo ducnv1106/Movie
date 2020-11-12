@@ -19,24 +19,15 @@ class SplashFragment : BaseFragment<FragmentSplashBinding,SplashViewModel>(){
 
     override fun onStart() {
         super.onStart()
+
+        //handler background when the delay 1s go to Login
         GlobalScope.launch {
             delay(1000)
             navigateOther()
         }
     }
 
-    private fun setupNoStatusBar(){
-        if(Build.VERSION.SDK_INT<16){
-//            getwindowwindow.setFlags(
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-        }
-    }
     private fun navigateOther(){
-//      findNavController().navigate(
-//          R.id.to_walkthrough
-//      )
       findNavController().navigate(R.id.to_walkthrough)
 
     }

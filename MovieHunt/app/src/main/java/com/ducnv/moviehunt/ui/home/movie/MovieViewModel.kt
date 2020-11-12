@@ -37,16 +37,6 @@ class MovieViewModel(private val userRepository: UserRepository,private val pref
 
     val isSkeleton = MutableLiveData<Boolean>().apply { value=true }
 
-
-    fun fetchGuestSession(){
-        viewModelScope.launch {
-            try {
-                guestSession.value=userRepository.guestSession()
-            }catch (e:Exception){
-                Log.e("guesSession","error")
-            }
-        }
-    }
     private fun fetchDataMovie(){
 
         viewModelScope.launch {

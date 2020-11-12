@@ -15,12 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.ducnv.moviehunt.BR
 import com.ducnv.moviehunt.R
+import com.ducnv.moviehunt.BR
 
-abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
-    BottomSheetDialogFragment() {
+abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
+    DialogFragment() {
 
     protected lateinit var viewBinding: ViewBinding
 
@@ -29,11 +28,6 @@ abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, View
     @get:LayoutRes
     protected abstract val layoutId: Int
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //transparent background bottomsheet
-        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,7 +42,8 @@ abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, View
                 executePendingBindings()
             }
         }
-
+        //transparent background dialogFragment
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         this.isCancelable=false
         return viewBinding.root
     }

@@ -11,8 +11,5 @@ class MainActivity :BaseActivity<ActivityMainBinding>() {
 
     override val getLayoutId: Int = R.layout.activity_main
 
-    override fun onBackPressed() {
-        finish()
-    }
 
 }
